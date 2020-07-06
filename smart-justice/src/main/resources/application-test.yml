@@ -1,0 +1,45 @@
+# 开发环境
+
+
+# 数据源相关配置
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/lab?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+        username: root
+        password: 12141x
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+        #数据库连接池使用SpringBoot默认的hikari
+        hikari:
+            minimum-idle: 5
+            maximum-pool-size: 30
+            idle-timeout: 30000
+            connection-timeout: 30000
+
+    ## MULTIPART (MultipartProperties)
+    # 开启 multipart 上传功能
+    # spring.servlet.multipart.enabled=true
+    # 文件写入磁盘的阈值
+#    servlet:
+#        multipart:
+#            file-size-threshold: 2KB
+#            # 最大文件大小,默认1Mb
+#            max-file-size: 20MB
+    # 上传多个文件最大值,50Mb,默认10Mb
+    # spring.servlet.multipart.max-request-size=1024MB
+
+# 数据库使用MySQL
+mybatis:
+    type-aliases-package: com.jike.lab.mapper
+    mapper-locations: classpath:mapper/*.xml
+
+
+#查看SQL查询语句
+logging:
+    level:
+        com.jike.lab.mapper: debug
+
+python:
+    env:
+        python_env: "Z:\\SmartJustice\\intelligent_justice_flask\\venv\\Scripts\\python.exe"
+        case_analysis_path: "Z:\\SmartJustice\\intelligent_justice_flask\\algorithm\\algorithm_example.py"
