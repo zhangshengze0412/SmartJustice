@@ -18,7 +18,7 @@ public class Execute {
 
     public String execute(String[] args){
         try {
-            long start  = System.currentTimeMillis();
+//            long start  = System.currentTimeMillis();
             //cmd:param1:python.exe路径,param2:要执行的脚本路径,param3:传参,param4.....
             Process proc = Runtime.getRuntime().exec(args);// 执行命令
 
@@ -41,7 +41,7 @@ public class Execute {
             in.close();
             isError.close();
             proc.waitFor();
-            System.out.println("time:" + (System.currentTimeMillis()-start));
+//            System.out.println("time:" + (System.currentTimeMillis()-start));
 //            String result = sb.toString().replace('\'','\"');
 //            System.out.println(result);
 //            System.out.println(sb.toString()+sbError.toString());

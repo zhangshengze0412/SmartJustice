@@ -13,7 +13,7 @@ public class Example {
 //        Process proc;
 //        try {
 //
-//            ParamsOfAlgorithm params = new ParamsOfAlgorithm();
+//            CtvFocusParams params = new CtvFocusParams();
 //            //python运行环境
 //            params.setCmd("Z:\\SmartJustice\\intelligent_justice_flask\\venv\\Scripts\\python.exe");
 //            //python脚本

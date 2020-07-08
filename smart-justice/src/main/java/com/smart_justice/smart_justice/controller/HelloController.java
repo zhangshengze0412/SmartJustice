@@ -1,10 +1,8 @@
 package com.smart_justice.smart_justice.controller;
 
-import com.smart_justice.smart_justice.algorithm.CaseAnalysis;
-import com.smart_justice.smart_justice.algorithm.Execute;
-import com.smart_justice.smart_justice.model.ParamsOfAlgorithm;
+import com.smart_justice.smart_justice.algorithm.CtvFocusAnalysis;
+import com.smart_justice.smart_justice.model.CtvFocusParams;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,20 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @Autowired
-    CaseAnalysis caseAnalysis;
+    CtvFocusAnalysis ctvFocusAnalysis;
 
     @GetMapping("/hello")
     public String hello(){
         return "hello";
     }
 
-    @GetMapping("/test")
+    @GetMapping("/testCtvFocus")
     public String getResult(){
 
-        ParamsOfAlgorithm params = new ParamsOfAlgorithm();
-        params.setFile_name("Z:\\SmartJustice\\intelligent_justice_flask\\algorithm\\data\\testdata_gysh_2.txt");
+        CtvFocusParams params = new CtvFocusParams();
+        params.setFile_name("Z:\\SmartJustice\\intelligent_justice_flask\\algorithm\\data\\gysh_10_test.csv");
+//        params.setFile_name("Z:\\SmartJustice\\intelligent_justice_flask\\algorithm\\data\\testdata_gysh_2.txt");
         //设置参数 file_type 文件类型
-        params.setFile_type("txt");
+        params.setFile_type("csv");
+//        params.setFile_type("txt");
         //设置参数 Id 案件Id
         params.setId("None");
         //设置参数 Original_claim 原告诉称
@@ -44,7 +44,7 @@ public class HelloController {
         params.setThreadhold("0.6");
         //设置参数 case_type {"marry","traffic","zpz","gysh"}
         params.setCase_type("gysh");
-        return caseAnalysis.predict(params);
+        return ctvFocusAnalysis.predict(params);
     }
 
 }

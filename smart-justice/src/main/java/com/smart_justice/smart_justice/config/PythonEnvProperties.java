@@ -17,8 +17,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @AllArgsConstructor
 public class PythonEnvProperties {
 
+    //python 运行环境
     private String python_env;
-    private String case_analysis_path;
+    //争议焦点分析脚本
+    private String ctv_focus_analysis_path;
+    //相似案例推荐脚本
+    private String related_case_rec_path;
+    //智能问答脚本
+    private String intelligent_ques_ans_path;
+    //法条推荐脚本
+    private String related_law_rec_path;
 
 }
 

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @className: ParamsOfAlgorithm
+ * @className: CtvFocusParams
  * @description: python算法参数bean
  * @author: ZSZ
  * @date: 2020/7/2 14:26
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParamsOfAlgorithm {
+public class CtvFocusParams {
 
     private String cmd;
     private String program;
