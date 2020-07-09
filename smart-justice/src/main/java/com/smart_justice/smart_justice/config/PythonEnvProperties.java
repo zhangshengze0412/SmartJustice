@@ -25,6 +25,8 @@ public class PythonEnvProperties {
     private String related_case_rec_path;
     //智能问答脚本
     private String intelligent_ques_ans_path;
+    //智能问答写入案情脚本
+    private String int_ques_ans_writeCase_path;
     //法条推荐脚本
     private String related_law_rec_path;
 

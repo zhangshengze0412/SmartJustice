@@ -47,7 +47,8 @@ python:
   env:
     python_env: "Z:\\SmartJustice\\intelligent_justice_flask\\venv\\Scripts\\python.exe"
     ctv_focus_analysis_path: "Z:\\SmartJustice\\intelligent_justice_flask\\algorithm\\algorithm_example.py"
-    related_case_rec_path: "C:\Users\DELL\Desktop\互联网+\sim-calu\similar_example.py"
-    intelligent_ques_ans_path:
+    related_case_rec_path: "C:\\Users\\DELL\\Desktop\\互联网+\\sim-calu\\similar_example.py"
+    intelligent_ques_ans_path: "C:\\Users\\DELL\\Desktop\\互联网+\\reading_comprehension\\main_example.py"
+    int_ques_ans_writeCase_path: "C:\\Users\\DELL\\Desktop\\互联网+\\reading_comprehension\\writeCase.py"
     related_law_rec_path:
 

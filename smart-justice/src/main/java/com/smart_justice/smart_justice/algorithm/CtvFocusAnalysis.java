@@ -2,6 +2,7 @@ package com.smart_justice.smart_justice.algorithm;
 
 import com.smart_justice.smart_justice.config.PythonEnvProperties;
 import com.smart_justice.smart_justice.model.CtvFocusParams;
+import com.smart_justice.smart_justice.util.ParsingResult;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,10 +42,7 @@ public class CtvFocusAnalysis {
                 params.getThreadhold(), params.getCase_type()};
 
         String result = execute.execute(args);
-        int pos_start = result.indexOf("<json>");
-        int pos_end = result.indexOf("</json>");
-        String sub_result = result.substring(pos_start+"<json>".length(),pos_end);
-
+        String sub_result = ParsingResult.parsingResult(result);
         sub_result = sub_result.replace('\'','\"');
 //        System.out.println(sub_result);
         return sub_result;

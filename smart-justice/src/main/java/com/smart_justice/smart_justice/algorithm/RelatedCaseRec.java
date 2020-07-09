@@ -2,7 +2,10 @@ package com.smart_justice.smart_justice.algorithm;
 
 import com.smart_justice.smart_justice.config.PythonEnvProperties;
 import com.smart_justice.smart_justice.model.RelatedCaseRecParams;
+import com.smart_justice.smart_justice.util.ParsingResult;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @className: RelatedCaseRec
@@ -10,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author: ZSZ
  * @date: 2020/7/8 9:00
  */
+@Data
+@Service
 public class RelatedCaseRec {
 
     @Autowired
@@ -26,6 +31,13 @@ public class RelatedCaseRec {
     }
 
     public String predict(RelatedCaseRecParams params){
-        return null;
+
+        String[] args = {PYTHON_ENV, RELATED_CASE_REC_PATH, params.getCase_description(),
+                params.getOriginal_claim(),params.getDefendant_argued()};
+
+        String result = execute.execute(args);
+        String sub_result = ParsingResult.parsingResult(result);
+        System.out.println(sub_result);
+        return sub_result;
     }
 }
