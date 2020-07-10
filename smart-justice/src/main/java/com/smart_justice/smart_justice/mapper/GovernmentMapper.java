@@ -8,5 +8,5 @@ package com.smart_justice.smart_justice.mapper;
  */
 
 
-public interface GovermentMapper {
+public interface GovernmentMapper {
 }

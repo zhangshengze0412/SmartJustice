@@ -4,14 +4,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * 律师Mapper
+ * 云服务平台婚姻案件Mapper
  *
  * @author tudou
- * @date 2020/7/10 0:07
+ * @date 2020/7/11 0:21
  */
-
 
 @Repository
 @Mapper
-public interface LawyerMapper {
+public interface CloudMarryMapper {
 }
