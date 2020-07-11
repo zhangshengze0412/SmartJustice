@@ -45,4 +45,11 @@ public interface UserService {
      * @return User
      */
     public User getUserInfo(Integer id);
+
+    /**
+     * 用户名是否存在
+     * @param username 总用户名
+     * @return boolean
+     */
+    public boolean isUsernameExist(String username);
 }

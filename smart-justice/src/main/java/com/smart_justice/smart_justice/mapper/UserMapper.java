@@ -41,7 +41,8 @@ public interface UserMapper {
             @Result(property = "realName",column = "real_name"),
             @Result(property = "phone",column ="phone"),
             @Result(property = "email",column = "email"),
-            @Result(property = "registerTime",column = "register_time")
+            @Result(property = "registerTime",column = "register_time"),
+            @Result(property = "isValid",column = "is_valid")
     })
     User getUserById(Integer id);
 
@@ -58,7 +59,8 @@ public interface UserMapper {
             @Result(property = "realName",column = "real_name"),
             @Result(property = "phone",column ="phone"),
             @Result(property = "email",column = "email"),
-            @Result(property = "registerTime",column = "register_time")
+            @Result(property = "registerTime",column = "register_time"),
+            @Result(property = "isValid",column = "is_valid")
     })
     User getUserByUsername(String username);
 
@@ -82,6 +84,7 @@ public interface UserMapper {
  *   `phone` varchar(255) DEFAULT NULL,
  *   `email` varchar(255) DEFAULT NULL,
  *   `register_time` datetime DEFAULT NULL,
+ *   `is_valid` int(11) DEFAULT 0,
  *   PRIMARY KEY (`id`)
  * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
  */

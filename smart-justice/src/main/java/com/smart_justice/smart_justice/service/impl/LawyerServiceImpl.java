@@ -6,6 +6,7 @@ import com.smart_justice.smart_justice.model.LawyerTeam;
 import com.smart_justice.smart_justice.service.LawyerService;
 import com.smart_justice.smart_justice.service.LawyerTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 律师用户服务实现类
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2020/7/11 21:37
  **/
 
-
+@Service
 public class LawyerServiceImpl implements LawyerService {
 
 

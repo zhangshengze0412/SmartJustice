@@ -4,6 +4,7 @@ import com.smart_justice.smart_justice.mapper.UserMapper;
 import com.smart_justice.smart_justice.model.User;
 import com.smart_justice.smart_justice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 总用户服务实现类
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2020/7/11 21:38
  **/
 
-
+@Service
 public class UserServiceImpl implements UserService {
 
 
@@ -42,5 +43,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserInfo(Integer id) {
        return userMapper.getUserById(id);
+    }
+
+    @Override
+    public boolean isUsernameExist(String username) {
+        User user=userMapper.getUserByUsername(username);
+        return user != null;
     }
 }

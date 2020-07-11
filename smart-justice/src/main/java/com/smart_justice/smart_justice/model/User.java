@@ -3,6 +3,7 @@ package com.smart_justice.smart_justice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Time;
 import java.util.Date;
@@ -15,18 +16,6 @@ import java.util.Date;
  * @date 2020/7/11 21:06
  **/
 
-/**
- * CREATE TABLE `user` (
- *   `id` int(11) NOT NULL AUTO_INCREMENT,
- *   `username` varchar(255) NOT NULL,
- *   `password` varchar(255) NOT NULL,
- *   `real_name` varchar(255) DEFAULT NULL,
- *   `phone` varchar(255) DEFAULT '0',
- *   `email` varchar(255) DEFAULT NULL,
- *   `register_time` datetime DEFAULT NULL,
- *   PRIMARY KEY (`id`)
- * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
- */
 
 @Data
 @NoArgsConstructor
@@ -39,5 +28,13 @@ public class User {
     private String realName;
     private String phone;
     private Date registerTime;
+    private Integer isValid;
+
+    public User(String username, String password,String realName,Date registerTime){
+        this.username=username;
+        this.password=password;
+        this.realName=realName;
+        this.registerTime=registerTime;
+    }
 
 }

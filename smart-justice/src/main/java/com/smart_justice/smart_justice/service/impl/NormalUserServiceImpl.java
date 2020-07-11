@@ -4,6 +4,7 @@ import com.smart_justice.smart_justice.mapper.NormalUserMapper;
 import com.smart_justice.smart_justice.model.NormalUser;
 import com.smart_justice.smart_justice.service.NormalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 普通用户服务实现类
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 
 
+@Service
 public class NormalUserServiceImpl implements NormalUserService {
 
     @Autowired
