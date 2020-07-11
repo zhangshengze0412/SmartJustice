@@ -1,8 +1,10 @@
 package com.smart_justice.smart_justice.service.impl;
 
 
+import com.smart_justice.smart_justice.mapper.LawyerTeamMapper;
 import com.smart_justice.smart_justice.model.LawyerTeam;
 import com.smart_justice.smart_justice.service.LawyerTeamService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 律师团队服务实现类
@@ -15,18 +17,27 @@ import com.smart_justice.smart_justice.service.LawyerTeamService;
 
 
 public class LawyerTeamServiceImpl implements LawyerTeamService {
+
+    @Autowired
+    private LawyerTeamMapper lawyerTeamMapper;
+
     @Override
     public LawyerTeam getLawyerTeamInfo(Integer id) {
-        return null;
+        return lawyerTeamMapper.getLawyerTeam(id);
     }
 
     @Override
     public boolean updateLawyerTeamInfo(LawyerTeam lawyerTeam) {
-        return false;
+        return lawyerTeamMapper.updateLawyerTeam(lawyerTeam);
     }
 
     @Override
     public boolean addLawyerTeam(LawyerTeam lawyerTeam) {
-        return false;
+        return lawyerTeamMapper.addLawyerTeam(lawyerTeam);
+    }
+
+    @Override
+    public boolean updateLawyerTeamNum(Integer id, Integer num) {
+        return updateLawyerTeamNum(id,num);
     }
 }

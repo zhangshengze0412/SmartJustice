@@ -1,6 +1,7 @@
 package com.smart_justice.smart_justice.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.smart_justice.smart_justice.model.Lawyer;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,6 +17,32 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface LawyerMapper {
+
+    /**
+     * 根据id获取律师用户信息
+     * @param id 律师id
+     * @return Lawyer
+     */
+    @Select("select * from lawyer where id = #{id}")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "userId",column = "user_id"),
+            @Result(property = "workId",column = "work_id"),
+            @Result(property = "teamId",column = "team_id"),
+    })
+    Lawyer getLawyer(Integer id);
+
+
+    /**
+     * 修改律师信息
+     * @param lawyer 律师用户信息
+     * @return boolean
+     */
+    @Update("update lawyer set team_id=#{teamId},work_id=#{work_id} where user_id=#{userId}")
+    boolean updateLawyer(Lawyer lawyer);
+
+
+
 }
 
 /**

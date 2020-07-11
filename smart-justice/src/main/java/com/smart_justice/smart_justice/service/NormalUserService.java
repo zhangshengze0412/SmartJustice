@@ -27,7 +27,7 @@ public interface NormalUserService {
      * @param id 普通用户id
      * @return NormalUser
      */
-    public NormalUser addNormalUser(Integer id);
+    public NormalUser getNormalUser(Integer id);
 
     /**
      * 修改普通用户信息

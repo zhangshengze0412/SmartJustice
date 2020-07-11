@@ -24,7 +24,7 @@ public interface UserMapper {
      * @param user 总用户
      * @return boolean
      */
-    @Insert("insert into user(username,password,real_name,email,register_time values(#{username},#{password},#{realName},#{email},#{registerTime})")
+    @Insert("insert into user(username,password,real_name,email,register_time) values(#{username},#{password},#{realName},#{email},#{registerTime})")
     @Options(useGeneratedKeys = true,keyProperty ="id",keyColumn = "id")
     boolean addUser(User user);
 
@@ -65,6 +65,7 @@ public interface UserMapper {
 
     /**
      * 修改用户信息
+     * TODO:缺少内容
      * @param user 总用户
      * @return boolean
      */

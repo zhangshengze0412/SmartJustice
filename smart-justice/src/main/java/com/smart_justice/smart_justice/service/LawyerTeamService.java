@@ -35,4 +35,12 @@ public interface LawyerTeamService {
      */
     public boolean addLawyerTeam(LawyerTeam lawyerTeam);
 
+    /**
+     * 增加律师团队人数
+     * @param id 律师团队id
+     * @param num 增加人数
+     * @return boolean
+     */
+    public boolean updateLawyerTeamNum(Integer id,Integer num);
+
 }
