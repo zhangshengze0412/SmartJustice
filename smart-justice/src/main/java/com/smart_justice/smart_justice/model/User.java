@@ -27,13 +27,15 @@ public class User {
     private String password;
     private String realName;
     private String phone;
+    private String email;
     private Date registerTime;
     private Integer isValid;
 
-    public User(String username, String password,String realName,Date registerTime){
+    public User(String username, String password,String realName,String email,Date registerTime){
         this.username=username;
         this.password=password;
         this.realName=realName;
+        this.email=email;
         this.registerTime=registerTime;
     }
 

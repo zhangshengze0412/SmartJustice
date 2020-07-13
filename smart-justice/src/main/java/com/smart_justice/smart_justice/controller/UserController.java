@@ -19,13 +19,17 @@ import java.util.Date;
  */
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @RequestMapping("/register")
-    public JsonResult register(@RequestParam(value = "username",required = false)String username, @RequestParam(value = "password",required = false) String password, @RequestParam(value = "real_name",required = false) String realName, @RequestParam(value = "email",required = false) String email, HttpServletResponse response, HttpSession session){
+    public JsonResult register(@RequestParam(value = "username")String username,
+                               @RequestParam(value = "password") String password,
+                               @RequestParam(value = "real_name") String realName,
+                               @RequestParam(value = "email") String email, HttpServletResponse response, HttpSession session){
         if(StringUtils.isBlank(username)||StringUtils.isBlank(password)){
             return JsonResult.errorMsg("用户名或密码不能为空");
         }
@@ -35,11 +39,30 @@ public class UserController {
             return JsonResult.errorMsg("用户名已经存在");
         }
 
-        User user=new User(username,password,realName,new Date());
+        User user=new User(username,password,realName,email,new Date());
         boolean is=userService.registerUser(user);
-        if(is){
+        if(!is){
             return JsonResult.errorMsg("注册失败");
         }
+
+        return JsonResult.ok();
+    }
+
+
+    @RequestMapping("/login")
+    public JsonResult login(@RequestParam(value = "username") String username,
+                            @RequestParam(value = "password")String password,
+                            HttpServletResponse response,HttpSession session){
+        if(StringUtils.isBlank(username)||StringUtils.isBlank(password)){
+            return JsonResult.errorMsg("用户名或密码不能为空");
+        }
+        boolean is = userService.loginUser(username,password);
+        if(!is){
+            return JsonResult.errorMsg("用户名或密码不正确");
+        }
+        User user=new User();
+        user.setUsername(username);
+        user.setPassword(password);
 
         return JsonResult.ok();
     }
