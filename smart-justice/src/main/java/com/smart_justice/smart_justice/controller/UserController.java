@@ -42,10 +42,21 @@ public class UserController {
         if(StringUtils.isBlank(username)||StringUtils.isBlank(password)){
             return JsonResult.errorMsg("用户名或密码不能为空");
         }
+        if(StringUtils.isBlank(realName)){
+            return JsonResult.errorMsg("真实姓名不能为空");
+        }
+        if(StringUtils.isBlank(email)){
+            return JsonResult.errorMsg("邮箱地址不能为空");
+        }
         //查询用户名是否存在
         boolean isExist = userService.isUsernameExist(username);
         if(isExist){
             return JsonResult.errorMsg("用户名已经存在");
+        }
+        //查询邮箱是否存在
+        boolean reIs =userService.isUserEmailExist(email);
+        if(reIs){
+            return JsonResult.errorMsg("用户邮箱已被注册");
         }
 
         User user=new User(username,password,realName,email,new Date());
@@ -78,10 +89,12 @@ public class UserController {
             }
             Lawyer lawyer=lawyerService.getLawyerInfoByUserId(user.getId());
             if(lawyer!=null){
-                session.setAttribute("user_id",user.getId());
-                session.setAttribute("username",user.getUsername());
                 session.setAttribute("team_id",lawyer.getTeamId());
+            }else{
+                session.setAttribute("team_id",0);
             }
+            session.setAttribute("user_id",user.getId());
+            session.setAttribute("username",user.getUsername());
         }
 
         return JsonResult.ok();

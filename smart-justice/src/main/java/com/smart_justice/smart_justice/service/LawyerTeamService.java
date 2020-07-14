@@ -31,9 +31,10 @@ public interface LawyerTeamService {
     /**
      * 增加律师团队信息
      * @param lawyerTeam 律师团队信息
-     * @return boolean
+     * @param userId 创建人用户id
+     * @return Integer
      */
-    public boolean addLawyerTeam(LawyerTeam lawyerTeam);
+    public Integer addLawyerTeam(LawyerTeam lawyerTeam,Integer userId);
 
     /**
      * 增加律师团队人数

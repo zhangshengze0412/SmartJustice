@@ -29,17 +29,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUserInfo(User user) {
         User reUser=userMapper.getUserById(user.getId());
-        if(!user.getPhone().equals(reUser.getPhone())){
+        if(reUser==null){
+            return false;
+        }
+        if(user.getPhone()!=null&& !user.getPhone().equals(reUser.getPhone())){
             reUser.setPhone(user.getPhone());
         }
-        if(!user.getEmail().equals(reUser.getEmail())){
+        if(user.getEmail()!=null&& !user.getEmail().equals(reUser.getEmail())){
             reUser.setEmail(user.getEmail());
             reUser.setIsValid(0);
         }
-        if(!user.getRealName().equals(reUser.getRealName())){
+        if(user.getRealName()!=null&& !user.getRealName().equals(reUser.getRealName())){
             reUser.setRealName(user.getRealName());
         }
-        return userMapper.updateUser(user);
+        return userMapper.updateUser(reUser);
     }
 
     @Override
@@ -64,6 +67,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUsernameExist(String username) {
         User user=userMapper.getUserByUsername(username);
+        return user != null;
+    }
+
+    @Override
+    public boolean isUserEmailExist(String email) {
+        User user=userMapper.getUserByEmail(email);
         return user != null;
     }
 }

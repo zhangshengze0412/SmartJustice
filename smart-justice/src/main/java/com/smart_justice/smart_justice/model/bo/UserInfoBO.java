@@ -24,7 +24,7 @@ public class UserInfoBO {
     private String username;
     private String realName;
     private Integer isValid;
-    private Date registerTime;
+    private String  registerTime;
     private String phone;
     private String email;
 

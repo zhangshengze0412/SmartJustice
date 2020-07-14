@@ -1,12 +1,14 @@
 package com.smart_justice.smart_justice.service.impl;
 
 import com.smart_justice.smart_justice.mapper.LawyerMapper;
+import com.smart_justice.smart_justice.mapper.LawyerTeamMapper;
 import com.smart_justice.smart_justice.mapper.UserMapper;
 import com.smart_justice.smart_justice.model.Lawyer;
 import com.smart_justice.smart_justice.model.LawyerTeam;
 import com.smart_justice.smart_justice.model.User;
 import com.smart_justice.smart_justice.service.LawyerService;
 import com.smart_justice.smart_justice.service.LawyerTeamService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -30,6 +32,9 @@ public class LawyerServiceImpl implements LawyerService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private LawyerTeamMapper lawyerTeamMapper;
+
 
     @Override
     public Lawyer getLawyerInfoById(Integer id) {
@@ -44,29 +49,40 @@ public class LawyerServiceImpl implements LawyerService {
 
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     @Override
-    public boolean updateLawyerInfo(User user, String workId) {
+    public boolean updateLawyerInfo(User user, String workId,Integer teamId) {
+        LawyerTeam lawyerTeam=lawyerTeamMapper.getLawyerTeam(teamId);
+        if(lawyerTeam==null){
+            return false;
+        }
+        Lawyer lawyer=lawyerMapper.getLawyerByUserId(user.getId());
+        if(!lawyer.getTeamId().equals(teamId)){
+            return false;
+        }
         User reUser = userMapper.getUserById(user.getId());
-        if(!"".equals(user.getPhone())){
+        if(user.getPhone()!=null){
             reUser.setPhone(user.getPhone());
         }
-        if(!"".equals(user.getRealName())){
+        if(user.getRealName()!=null){
             reUser.setRealName(user.getRealName());
         }
-        if(!"".equals(user.getEmail())){
+        if(user.getEmail()!=null){
             reUser.setEmail(user.getEmail());
             reUser.setIsValid(0);
         }
-        Lawyer lawyer=lawyerMapper.getLawyerByUserId(user.getId());
-        if(!"".equals(workId)){
-            lawyer.setWorkId(workId);
-        }
-        try {
-            userMapper.updateUser(reUser);
-            lawyerMapper.updateLawyer(reUser.getId(),workId);
-        }catch (Exception e){
-            e.printStackTrace();
+        boolean is=userMapper.updateUser(reUser);
+        if(!is){
+            new Exception();
             return false;
         }
+        if(workId!=null){
+            boolean reIs=lawyerMapper.updateLawyer(reUser.getId(),workId);
+            if(!reIs){
+                new Exception();
+                return false;
+            }
+        }
+
+
         return true;
     }
 

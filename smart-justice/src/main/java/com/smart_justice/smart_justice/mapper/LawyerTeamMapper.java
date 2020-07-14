@@ -29,15 +29,33 @@ public interface LawyerTeamMapper {
             @Result(property = "scale",column = "scale"),
             @Result(property = "num",column = "num"),
             @Result(property = "phone",column = "phone"),
+            @Result(property = "userId",column = "user_id"),
     })
     LawyerTeam getLawyerTeam(Integer id);
+
+    /**
+     * 根据id获取律师团队信息
+     * @param name 律师团队名称
+     * @return Lawyer
+     */
+    @Select("select * from lawyer_team where name = #{name}")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "name",column = "name"),
+            @Result(property = "scale",column = "scale"),
+            @Result(property = "num",column = "num"),
+            @Result(property = "phone",column = "phone"),
+            @Result(property = "userId",column = "user_id"),
+    })
+    LawyerTeam getLawyerTeamByName(String name);
+
 
     /**
      * 增加律师团队信息
      * @param lawyerTeam 律师团队信息
      * @return boolean
      */
-    @Insert("insert into lawyer_team(name,scale,num,phone) values(#{name},#{scale},#{num},#{phone})")
+    @Insert("insert into lawyer_team(name,scale,num,phone,user_id) values(#{name},#{scale},#{num},#{phone},#{userId})")
     @Options(useGeneratedKeys = true,keyProperty ="id",keyColumn = "id")
     boolean addLawyerTeam(LawyerTeam lawyerTeam);
 
@@ -66,10 +84,11 @@ public interface LawyerTeamMapper {
 /**
  * CREATE TABLE `lawyer_team` (
  *   `id` int(11) NOT NULL AUTO_INCREMENT,
- *   `name` varchar(255) DEFAULT NULL,
- *   `scale` int(11) DEFAULT '0',
- *   `num` int(11) DEFAULT '0',
- *   `phone` varchar(255) DEFAULT NULL,
+ *   `name` varchar(255) NOT NULL,
+ *   `scale` int(11) NOT NULL DEFAULT '0',
+ *   `num` int(11) NOT NULL DEFAULT '0',
+ *   `phone` varchar(255) NOT NULL,
+ *   `user_id` int(11) NOT NULL,
  *   PRIMARY KEY (`id`)
- * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ * ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
  */

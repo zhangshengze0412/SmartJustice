@@ -24,7 +24,7 @@ public interface NormalUserMapper {
      * @param user 普通用户
      * @return boolean
      */
-    @Insert("insert into normal_user(user_id,vip,vip_time) values(#{user_id},#{vip},#{vip_time})")
+    @Insert("insert into normal_user(user_id,vip,vip_time) values(#{userId},#{vip},#{vipTime})")
     @Options(useGeneratedKeys = true,keyProperty ="id",keyColumn = "id")
     boolean addNormalUser(NormalUser user);
 

@@ -60,5 +60,10 @@ public interface UserService {
      */
     public boolean isUsernameExist(String username);
 
-
+    /**
+     * 用户邮箱是否存在
+     * @param email 用户邮箱
+     * @return boolean
+     */
+    public boolean isUserEmailExist(String email);
 }

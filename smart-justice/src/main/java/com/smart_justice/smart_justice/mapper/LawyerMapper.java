@@ -30,6 +30,7 @@ public interface LawyerMapper {
             @Result(property = "userId",column = "user_id"),
             @Result(property = "workId",column = "work_id"),
             @Result(property = "teamId",column = "team_id"),
+            @Result(property = "isValid",column = "is_valid"),
     })
     Lawyer getLawyerById(Integer id);
 
@@ -44,6 +45,7 @@ public interface LawyerMapper {
             @Result(property = "userId",column = "user_id"),
             @Result(property = "workId",column = "work_id"),
             @Result(property = "teamId",column = "team_id"),
+            @Result(property = "isValid",column = "is_valid"),
     })
     Lawyer getLawyerByUserId(Integer userId);
 
@@ -54,7 +56,7 @@ public interface LawyerMapper {
      * @param userId 律师用户id
      * @return boolean
      */
-    @Update("update lawyer set work_id=#{work_id} where user_id=#{userId}")
+    @Update("update lawyer set work_id=#{workId} where user_id=#{userId}")
     boolean updateLawyer(Integer userId,String workId);
 
 
@@ -72,7 +74,7 @@ public interface LawyerMapper {
      * @param lawyer 律师用户信息
      * @return boolean
      */
-    @Insert("insert into lawyer(user_id,work_id,,team_id,is_valid) values(#{userId},#{workId},#{teamId},#{isValid})")
+    @Insert("insert into lawyer(user_id,work_id,team_id,is_valid) values(#{userId},#{workId},#{teamId},#{isValid})")
     @Options(useGeneratedKeys = true,keyProperty ="id",keyColumn = "id")
     boolean addLawyer(Lawyer lawyer);
 

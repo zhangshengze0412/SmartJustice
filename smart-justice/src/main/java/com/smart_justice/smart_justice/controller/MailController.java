@@ -40,7 +40,7 @@ public class MailController {
 
 
     @Value("${spring.mail.username}")
-    private String form;
+    private String from;
 
     public static final String DOMAIN = "http://localhost:8080";
 
@@ -50,13 +50,12 @@ public class MailController {
     @RequestMapping("/user/email")
     public JsonResult sendAuthUserEmail(String username,String email){
         String url = DOMAIN+"/user/auth?username="+username+"&email="+email;
-
         try{
             Context context=new Context();
             context.setVariable("url",url);
-            String emailContent = templateEngine.process("emailTemp",context);
+            String emailContent = templateEngine.process("MailTemplate",context);
 
-            mailService.sendHtmlMail(form,email,"智邮法助验证邮箱",emailContent);
+            mailService.sendHtmlMail(from,email,"智邮法助验证邮箱",emailContent);
         }catch(Exception ex){
             ex.printStackTrace();
             return JsonResult.errorMsg("邮件发送失败");
@@ -91,9 +90,9 @@ public class MailController {
         try{
             Context context=new Context();
             context.setVariable("url",url);
-            String emailContent = templateEngine.process("emailTemp",context);
+            String emailContent = templateEngine.process("/MailTemplate",context);
 
-            mailService.sendHtmlMail(form,email,"智邮法助验证邮箱",emailContent);
+            mailService.sendHtmlMail(from,email,"智邮法助验证邮箱",emailContent);
         }catch(Exception ex){
             ex.printStackTrace();
             return JsonResult.errorMsg("邮件发送失败");
@@ -105,7 +104,11 @@ public class MailController {
      * 企业邮箱验证
      */
     @RequestMapping("/lawyer/auth")
-    public JsonResult authLawyerTeamEmail(String username,String email,Integer teamId){
+    public JsonResult authLawyerTeamEmail(String username,String email,HttpServletResponse response,HttpSession session){
+        Integer teamId=(Integer)session.getAttribute("team_id");
+        if(teamId==null){
+            return JsonResult.errorMsg("请用户创建组织后使用");
+        }
         boolean is=mailService.authLawyerTeamEmail(email,username,teamId);
         if(!is){
             return JsonResult.errorMsg("验证失败");

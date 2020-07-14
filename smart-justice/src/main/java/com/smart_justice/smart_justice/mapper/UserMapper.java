@@ -64,13 +64,31 @@ public interface UserMapper {
     })
     User getUserByUsername(String username);
 
+    /**
+     * 通过username获取总用户信息
+     * @param email 用户邮箱
+     * @return User
+     */
+    @Select("select * from user where email = #{email}")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "username",column = "username"),
+            @Result(property = "password",column = "password"),
+            @Result(property = "realName",column = "real_name"),
+            @Result(property = "phone",column ="phone"),
+            @Result(property = "email",column = "email"),
+            @Result(property = "registerTime",column = "register_time"),
+            @Result(property = "isValid",column = "is_valid")
+    })
+    User getUserByEmail(String email);
+
 
     /**
      * 修改用户信息
      * @param user 总用户
      * @return User
      */
-    @Update("update user set email=#{email},phone=#{phone},real_name=#{realName},is_valid=#{isValid} where user_id = #{userId}")
+    @Update("update user set email=#{email},phone=#{phone},real_name=#{realName},is_valid=#{isValid} where id = #{id}")
     boolean updateUser(User user);
 
 

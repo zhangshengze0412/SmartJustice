@@ -62,13 +62,12 @@ public class MailServiceImpl implements MailService {
         }
         NormalUser normalUser=new NormalUser();
         normalUser.setUserId(user.getId());
-        try {
-            normalUserMapper.addNormalUser(normalUser);
-            userMapper.authUser(email);
-        }catch (Exception e){
-            e.printStackTrace();
+        boolean is=normalUserMapper.addNormalUser(normalUser);
+        if(!is){
+            new Exception();
             return false;
         }
+        userMapper.authUser(email);
         return true;
     }
 
@@ -82,21 +81,21 @@ public class MailServiceImpl implements MailService {
         if(!user.getEmail().equals(email)){
             return false;
         }
-        Lawyer lawyer=lawyerMapper.getLawyerById(user.getId());
+        Lawyer lawyer=lawyerMapper.getLawyerByUserId(user.getId());
         if(lawyer!=null&&lawyer.getIsValid()!=0){
             return true;
         }
         Lawyer reLawyer=new Lawyer();
         reLawyer.setUserId(user.getId());
         reLawyer.setTeamId(teamId);
-        try{
-            lawyerMapper.addLawyer(reLawyer);
-            lawyerMapper.authLawyer(user.getId());
-            lawyerTeamMapper.updateLawyerTeamNum(teamId,1);
-        }catch (Exception e){
-            e.printStackTrace();
+        boolean is=lawyerMapper.addLawyer(reLawyer);
+        boolean reIs=lawyerMapper.authLawyer(user.getId());
+        boolean reReIs=lawyerTeamMapper.updateLawyerTeamNum(teamId,1);
+        if(!is||!reIs||!reReIs){
+            new Exception();
             return false;
         }
+
         return true;
     }
 

@@ -34,8 +34,9 @@ public interface LawyerService {
      * 修改律师个人信息
      * @param  user 用户信息
      * @param  workId 工号
+     * @param  teamId 组织id
      * @return boolean
      */
-    public boolean updateLawyerInfo(User user,String workId);
+    public boolean updateLawyerInfo(User user, String workId, Integer teamId);
 
 }

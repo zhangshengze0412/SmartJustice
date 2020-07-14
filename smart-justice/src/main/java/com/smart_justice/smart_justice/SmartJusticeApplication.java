@@ -4,8 +4,10 @@ import com.smart_justice.smart_justice.config.PythonEnvProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @MapperScan("com.smart_justice.smart_justice.mapper")
@@ -15,6 +17,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @EnableConfigurationProperties({
         PythonEnvProperties.class
 })
+@EnableTransactionManagement
 //打开计时器
 //@EnableTransactionManagement
 //@EnableScheduling

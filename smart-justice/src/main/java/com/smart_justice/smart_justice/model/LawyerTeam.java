@@ -22,6 +22,7 @@ public class LawyerTeam {
     private Integer scale;
     private Integer num;
     private String phone;
+    private Integer userId;
 
 }
 
@@ -30,10 +31,11 @@ public class LawyerTeam {
 /**
  * CREATE TABLE `lawyer_team` (
  *   `id` int(11) NOT NULL AUTO_INCREMENT,
- *   `name` varchar(255) DEFAULT NULL,
- *   `scale` int(11) DEFAULT '0',
- *   `num` int(11) DEFAULT '0',
- *   `phone` varchar(255) DEFAULT NULL,
+ *   `name` varchar(255) NOT NULL,
+ *   `scale` int(11) NOT NULL DEFAULT '0',
+ *   `num` int(11) NOT NULL DEFAULT '0',
+ *   `phone` varchar(255) NOT NULL,
+ *   `user_id` int(11) NOT NULL,
  *   PRIMARY KEY (`id`)
- * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ * ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
  */
