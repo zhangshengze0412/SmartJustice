@@ -1,6 +1,7 @@
 package com.smart_justice.smart_justice.mapper;
 
 import com.smart_justice.smart_justice.model.Lawyer;
+import com.smart_justice.smart_justice.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -50,11 +51,11 @@ public interface LawyerMapper {
 
     /**
      * 修改律师信息
-     * @param lawyer 律师用户信息
+     * @param userId 律师用户id
      * @return boolean
      */
-    @Update("update lawyer set team_id=#{teamId},work_id=#{work_id} where user_id=#{userId}")
-    boolean updateLawyer(Lawyer lawyer);
+    @Update("update lawyer set work_id=#{work_id} where user_id=#{userId}")
+    boolean updateLawyer(Integer userId,String workId);
 
 
     /**
@@ -64,6 +65,16 @@ public interface LawyerMapper {
      */
     @Update("update lawyer set is_valid = 1 where user_id=#{userId}")
     boolean authLawyer(Integer userId);
+
+
+    /**
+     * 增加律师信息
+     * @param lawyer 律师用户信息
+     * @return boolean
+     */
+    @Insert("insert into lawyer(user_id,work_id,,team_id,is_valid) values(#{userId},#{workId},#{teamId},#{isValid})")
+    @Options(useGeneratedKeys = true,keyProperty ="id",keyColumn = "id")
+    boolean addLawyer(Lawyer lawyer);
 
 
 }

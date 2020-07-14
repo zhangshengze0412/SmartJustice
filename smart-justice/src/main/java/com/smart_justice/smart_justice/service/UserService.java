@@ -59,4 +59,6 @@ public interface UserService {
      * @return boolean
      */
     public boolean isUsernameExist(String username);
+
+
 }

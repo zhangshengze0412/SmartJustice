@@ -1,14 +1,19 @@
 package com.smart_justice.smart_justice.service.impl;
 
 import com.smart_justice.smart_justice.mapper.LawyerMapper;
+import com.smart_justice.smart_justice.mapper.LawyerTeamMapper;
+import com.smart_justice.smart_justice.mapper.NormalUserMapper;
 import com.smart_justice.smart_justice.mapper.UserMapper;
 import com.smart_justice.smart_justice.model.Lawyer;
+import com.smart_justice.smart_justice.model.NormalUser;
 import com.smart_justice.smart_justice.model.User;
 import com.smart_justice.smart_justice.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -32,9 +37,16 @@ public class MailServiceImpl implements MailService {
     private LawyerMapper lawyerMapper;
 
     @Autowired
+    private NormalUserMapper normalUserMapper;
+
+    @Autowired
+    private LawyerTeamMapper lawyerTeamMapper;
+
+    @Autowired
     private JavaMailSender mailSender;
 
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     @Override
     public boolean authUserEmail(String email,String username) {
         User user=userMapper.getUserByUsername(username);
@@ -44,12 +56,25 @@ public class MailServiceImpl implements MailService {
         if(!user.getEmail().equals(email)){
             return false;
         }
-        return userMapper.authUser(email);
-
+        NormalUser isNormalUser=normalUserMapper.getNormalUserByUserId(user.getId());
+        if(isNormalUser!=null){
+            return true;
+        }
+        NormalUser normalUser=new NormalUser();
+        normalUser.setUserId(user.getId());
+        try {
+            normalUserMapper.addNormalUser(normalUser);
+            userMapper.authUser(email);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     @Override
-    public boolean authLawyerTeamEmail(String email,String username) {
+    public boolean authLawyerTeamEmail(String email,String username,Integer teamId) {
         User user=userMapper.getUserByUsername(username);
         if(user==null){
             return false;
@@ -58,10 +83,21 @@ public class MailServiceImpl implements MailService {
             return false;
         }
         Lawyer lawyer=lawyerMapper.getLawyerById(user.getId());
-        if(lawyer!=null&&lawyer.getTeamId()!=0){
-            return lawyerMapper.authLawyer(user.getId());
+        if(lawyer!=null&&lawyer.getIsValid()!=0){
+            return true;
         }
-        return false;
+        Lawyer reLawyer=new Lawyer();
+        reLawyer.setUserId(user.getId());
+        reLawyer.setTeamId(teamId);
+        try{
+            lawyerMapper.addLawyer(reLawyer);
+            lawyerMapper.authLawyer(user.getId());
+            lawyerTeamMapper.updateLawyerTeamNum(teamId,1);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override

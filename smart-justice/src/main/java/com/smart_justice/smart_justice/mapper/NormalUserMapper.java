@@ -42,6 +42,19 @@ public interface NormalUserMapper {
     })
     NormalUser getNormalUserById(Integer id);
 
+    /**
+     * 通过userId获取总用户信息
+     * @param userId 用户id
+     * @return User
+     */
+    @Select("select * from normal_user where user_id = #{userId}")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "userId",column = "user_id"),
+            @Result(property = "vip",column = "vip"),
+            @Result(property = "vipTime",column = "vip_time"),
+    })
+    NormalUser getNormalUserByUserId(Integer userId);
 
 
     /**

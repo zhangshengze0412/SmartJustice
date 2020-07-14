@@ -28,6 +28,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUserInfo(User user) {
+        User reUser=userMapper.getUserById(user.getId());
+        if(!user.getPhone().equals(reUser.getPhone())){
+            reUser.setPhone(user.getPhone());
+        }
+        if(!user.getEmail().equals(reUser.getEmail())){
+            reUser.setEmail(user.getEmail());
+            reUser.setIsValid(0);
+        }
+        if(!user.getRealName().equals(reUser.getRealName())){
+            reUser.setRealName(user.getRealName());
+        }
         return userMapper.updateUser(user);
     }
 

@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -30,6 +31,9 @@ public class UserController {
     @Autowired
     private LawyerService lawyerService;
 
+    /**
+     * 注册
+     */
     @RequestMapping("/register")
     public JsonResult register(@RequestParam(value = "username")String username,
                                @RequestParam(value = "password") String password,
@@ -53,7 +57,9 @@ public class UserController {
         return JsonResult.ok();
     }
 
-
+    /**
+     * 登陆
+     */
     @RequestMapping("/login")
     public JsonResult login(@RequestParam(value = "username") String username,
                             @RequestParam(value = "password")String password,

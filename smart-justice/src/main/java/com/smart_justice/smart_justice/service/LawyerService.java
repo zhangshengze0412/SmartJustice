@@ -1,6 +1,7 @@
 package com.smart_justice.smart_justice.service;
 
 import com.smart_justice.smart_justice.model.Lawyer;
+import com.smart_justice.smart_justice.model.User;
 
 /**
  * 律师用户服务
@@ -31,9 +32,10 @@ public interface LawyerService {
 
     /**
      * 修改律师个人信息
-     * @param lawyer 律师用户信息
+     * @param  user 用户信息
+     * @param  workId 工号
      * @return boolean
      */
-    public boolean updateLawyerInfo(Lawyer lawyer);
+    public boolean updateLawyerInfo(User user,String workId);
 
 }

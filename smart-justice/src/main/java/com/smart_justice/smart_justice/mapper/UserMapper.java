@@ -67,20 +67,19 @@ public interface UserMapper {
 
     /**
      * 修改用户信息
-     * TODO:缺少内容
      * @param user 总用户
-     * @return boolean
+     * @return User
      */
+    @Update("update user set email=#{email},phone=#{phone},real_name=#{realName},is_valid=#{isValid} where user_id = #{userId}")
     boolean updateUser(User user);
 
 
     /**
      * 修改用户验证信息
      * @param email 验证邮箱
-     * @return boolean
      */
     @Update("update user set is_valid = 1 where email=#{email}")
-    boolean authUser(String email);
+    void authUser(String email);
 
 }
 

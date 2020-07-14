@@ -23,9 +23,10 @@ public interface MailService {
      * 企业邮箱验证服务
      * @param email 邀请者的邮箱
      * @param username 邀请者用户名
+     * @param teamId 企业团队id
      * @return boolean
      */
-    boolean authLawyerTeamEmail(String email,String username);
+    boolean authLawyerTeamEmail(String email,String username,Integer teamId);
 
     /**
      * 发送html用户邮箱验证邮件

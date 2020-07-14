@@ -1,6 +1,9 @@
 package com.smart_justice.smart_justice.controller;
 
+import com.smart_justice.smart_justice.model.NormalUser;
+import com.smart_justice.smart_justice.model.User;
 import com.smart_justice.smart_justice.service.MailService;
+import com.smart_justice.smart_justice.service.UserService;
 import com.smart_justice.smart_justice.util.JsonResult;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,9 @@ public class MailController {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private UserService userService;
+
 
     @Autowired
     private TemplateEngine templateEngine;
@@ -38,6 +44,9 @@ public class MailController {
 
     public static final String DOMAIN = "http://localhost:8080";
 
+    /**
+     * 用户发送验证邮箱邮件
+     */
     @RequestMapping("/user/email")
     public JsonResult sendAuthUserEmail(String username,String email){
         String url = DOMAIN+"/user/auth?username="+username+"&email="+email;
@@ -50,22 +59,34 @@ public class MailController {
             mailService.sendHtmlMail(form,email,"智邮法助验证邮箱",emailContent);
         }catch(Exception ex){
             ex.printStackTrace();
+            return JsonResult.errorMsg("邮件发送失败");
         }
         return JsonResult.ok();
     }
 
+    /**
+     * 用户邮箱验证
+     */
     @RequestMapping("/user/auth")
-    public String authUserEmail(String username,String email){
+    public JsonResult authUserEmail(String username,String email){
         boolean is=mailService.authUserEmail(email,username);
         if(!is){
-            return "验证失败，请重新再试";
+            return JsonResult.errorMsg("验证失败");
         }
-        return "验证成功";
+        return JsonResult.ok();
     }
 
+
+    /**
+     * 企业发送验证邮箱邮件
+     */
     @RequestMapping("/lawyer/email")
-    public JsonResult sendAuthLawyerTeamEmail(String username,String email){
-        String url = DOMAIN+"/lawyer/auth?username="+username+"&email="+email;
+    public JsonResult sendAuthLawyerTeamEmail(String username,String email,HttpServletResponse response,HttpSession session){
+        Integer teamId=(Integer)session.getAttribute("team_id");
+        if(teamId == 0){
+            return JsonResult.errorMsg("请先创建组织");
+        }
+        String url = DOMAIN+"/lawyer/auth?username="+username+"&email="+email+"&team_id="+teamId;
 
         try{
             Context context=new Context();
@@ -75,17 +96,21 @@ public class MailController {
             mailService.sendHtmlMail(form,email,"智邮法助验证邮箱",emailContent);
         }catch(Exception ex){
             ex.printStackTrace();
+            return JsonResult.errorMsg("邮件发送失败");
         }
         return JsonResult.ok();
     }
 
+    /**
+     * 企业邮箱验证
+     */
     @RequestMapping("/lawyer/auth")
-    public String authLawyerTeamEmail(String username,String email){
-        boolean is=mailService.authLawyerTeamEmail(email,username);
+    public JsonResult authLawyerTeamEmail(String username,String email,Integer teamId){
+        boolean is=mailService.authLawyerTeamEmail(email,username,teamId);
         if(!is){
-            return "验证失败，请重新再试";
+            return JsonResult.errorMsg("验证失败");
         }
-        return "验证成功";
+        return JsonResult.ok();
     }
 
 
