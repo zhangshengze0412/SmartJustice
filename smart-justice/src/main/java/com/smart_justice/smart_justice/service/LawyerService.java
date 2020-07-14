@@ -20,7 +20,14 @@ public interface LawyerService {
      * @param id 律师id
      * @return Lawyer
      */
-    public Lawyer getLawyerInfo(Integer id);
+    public Lawyer getLawyerInfoById(Integer id);
+
+    /**
+     * 获取律师个人信息
+     * @param userId 律师用户id
+     * @return Lawyer
+     */
+    public Lawyer getLawyerInfoByUserId(Integer userId);
 
     /**
      * 修改律师个人信息

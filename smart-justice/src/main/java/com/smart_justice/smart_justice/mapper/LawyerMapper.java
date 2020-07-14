@@ -30,7 +30,22 @@ public interface LawyerMapper {
             @Result(property = "workId",column = "work_id"),
             @Result(property = "teamId",column = "team_id"),
     })
-    Lawyer getLawyer(Integer id);
+    Lawyer getLawyerById(Integer id);
+
+    /**
+     * 根据user_id获取律师用户信息
+     * @param userId 律师用户id
+     * @return Lawyer
+     */
+    @Select("select * from lawyer where user_id = #{userId}")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "userId",column = "user_id"),
+            @Result(property = "workId",column = "work_id"),
+            @Result(property = "teamId",column = "team_id"),
+    })
+    Lawyer getLawyerByUserId(Integer userId);
+
 
 
     /**
@@ -42,6 +57,14 @@ public interface LawyerMapper {
     boolean updateLawyer(Lawyer lawyer);
 
 
+    /**
+     * 修改用户验证信息
+     * @param userId 用户id
+     * @return boolean
+     */
+    @Update("update lawyer set is_valid = 1 where user_id=#{userId}")
+    boolean authLawyer(Integer userId);
+
 
 }
 
@@ -51,6 +74,7 @@ public interface LawyerMapper {
  *   `user_id` int(11) NOT NULL,
  *   `work_id` varchar(255) NOT NULL,
  *   `team_id` int(11) NOT NULL,
+ *   `is_valid` int(11) DEFAULT '0',
  *   PRIMARY KEY (`id`)
  * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
  */

@@ -73,6 +73,15 @@ public interface UserMapper {
      */
     boolean updateUser(User user);
 
+
+    /**
+     * 修改用户验证信息
+     * @param email 验证邮箱
+     * @return boolean
+     */
+    @Update("update user set is_valid = 1 where email=#{email}")
+    boolean authUser(String email);
+
 }
 
 /**

@@ -1,6 +1,8 @@
 package com.smart_justice.smart_justice.controller;
 
+import com.smart_justice.smart_justice.model.Lawyer;
 import com.smart_justice.smart_justice.model.User;
+import com.smart_justice.smart_justice.service.LawyerService;
 import com.smart_justice.smart_justice.service.UserService;
 import com.smart_justice.smart_justice.util.JsonResult;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LawyerService lawyerService;
 
     @RequestMapping("/register")
     public JsonResult register(@RequestParam(value = "username")String username,
@@ -60,9 +65,18 @@ public class UserController {
         if(!is){
             return JsonResult.errorMsg("用户名或密码不正确");
         }
-        User user=new User();
-        user.setUsername(username);
-        user.setPassword(password);
+        User user=userService.getUserInfo(username);
+        if(user!=null){
+            if(user.getIsValid()==0){
+                return JsonResult.errorMsg("该用户未激活邮箱");
+            }
+            Lawyer lawyer=lawyerService.getLawyerInfoByUserId(user.getId());
+            if(lawyer!=null){
+                session.setAttribute("user_id",user.getId());
+                session.setAttribute("username",user.getUsername());
+                session.setAttribute("team_id",lawyer.getTeamId());
+            }
+        }
 
         return JsonResult.ok();
     }

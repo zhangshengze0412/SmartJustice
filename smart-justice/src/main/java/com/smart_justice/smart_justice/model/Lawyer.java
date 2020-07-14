@@ -20,6 +20,7 @@ public class Lawyer {
     private Integer userId;
     private String workId;
     private Integer teamId;
+    private Integer isValid;
 }
 
 /**
@@ -28,6 +29,7 @@ public class Lawyer {
  *   `user_id` int(11) NOT NULL,
  *   `work_id` varchar(255) NOT NULL,
  *   `team_id` int(11) NOT NULL,
+ *   `is_valid` int(11) DEFAULT '0',
  *   PRIMARY KEY (`id`)
  * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
  */

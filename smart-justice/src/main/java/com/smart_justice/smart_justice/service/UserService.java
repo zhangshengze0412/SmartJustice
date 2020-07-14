@@ -47,6 +47,13 @@ public interface UserService {
     public User getUserInfo(Integer id);
 
     /**
+     * 获取用户信息
+     * @param username 用户名
+     * @return User
+     */
+    public User getUserInfo(String username);
+
+    /**
      * 用户名是否存在
      * @param username 总用户名
      * @return boolean

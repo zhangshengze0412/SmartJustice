@@ -23,9 +23,15 @@ public class LawyerServiceImpl implements LawyerService {
     @Autowired
     private LawyerMapper lawyerMapper;
 
+
     @Override
-    public Lawyer getLawyerInfo(Integer id) {
-        return lawyerMapper.getLawyer(id);
+    public Lawyer getLawyerInfoById(Integer id) {
+        return lawyerMapper.getLawyerById(id);
+    }
+
+    @Override
+    public Lawyer getLawyerInfoByUserId(Integer userId) {
+        return lawyerMapper.getLawyerByUserId(userId);
     }
 
     @Override
