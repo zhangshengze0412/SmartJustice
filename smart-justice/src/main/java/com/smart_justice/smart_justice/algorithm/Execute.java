@@ -38,6 +38,7 @@ public class Execute {
                 sbError.append(lineError);
                 sbError.append("\n");
             }
+//            System.out.println(sbError);
             in.close();
             isError.close();
             proc.waitFor();
@@ -47,9 +48,7 @@ public class Execute {
 //            System.out.println(sb.toString()+sbError.toString());
 
             return sb.toString()+sbError.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return null;

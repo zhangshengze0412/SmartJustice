@@ -1,10 +1,13 @@
 package com.smart_justice.smart_justice.algorithm;
 
 import com.smart_justice.smart_justice.config.PythonEnvProperties;
-import com.smart_justice.smart_justice.model.CtvFocusParams;
+import com.smart_justice.smart_justice.mapper.CourtMapper;
+import com.smart_justice.smart_justice.model.*;
+import com.smart_justice.smart_justice.util.ParseJsonToObj;
 import com.smart_justice.smart_justice.util.ParsingResult;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +24,9 @@ public class CtvFocusAnalysis {
 
     @Autowired
     private Execute execute;
+
+    @Autowired
+    CourtMapper courtMapper;
 
     private final String PYTHON_ENV;
 
@@ -45,6 +51,43 @@ public class CtvFocusAnalysis {
         String sub_result = ParsingResult.parsingResult(result);
         sub_result = sub_result.replace('\'','\"');
 //        System.out.println(sub_result);
+
+        if(!params.getFile_type().equals("csv")){
+            switch (params.getCase_type()){
+                case "marry":
+                    MarryCase marryCase = ParseJsonToObj.toMarry(sub_result);
+                    if(marryCase != null){
+                        courtMapper.insertMarry(marryCase);
+                        courtMapper.withTabIndex(marryCase.getId(),1);
+                    }
+                    break;
+                case "traffic":
+                    TrafficCase trafficCase = ParseJsonToObj.toTraffic(sub_result);
+                    if(trafficCase != null){
+                        courtMapper.insertTraffic(trafficCase);
+                        courtMapper.withTabIndex(trafficCase.getId(),3);
+                    }
+                    break;
+                case "zpz":
+                    ScamCase scamCase = ParseJsonToObj.toScam(sub_result);
+                    if(scamCase != null){
+                        courtMapper.insertScam(scamCase);
+                        courtMapper.withTabIndex(scamCase.getId(),2);
+                    }
+                    break;
+                case "gysh":
+                    IntentionalInjuryCase intentionalInjuryCase = ParseJsonToObj.toIntent(sub_result);
+                    if(intentionalInjuryCase != null){
+                        courtMapper.insertIntent(intentionalInjuryCase);
+                        courtMapper.withTabIndex(intentionalInjuryCase.getId(),0);
+                    }
+                    break;
+                default:
+            }
+        }
+
+
+
         return sub_result;
     }
 
