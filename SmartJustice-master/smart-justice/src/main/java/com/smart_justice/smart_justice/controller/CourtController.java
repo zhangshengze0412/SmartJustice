@@ -4,10 +4,7 @@ import com.smart_justice.smart_justice.algorithm.CourtService;
 import com.smart_justice.smart_justice.algorithm.CtvFocusAnalysis;
 import com.smart_justice.smart_justice.algorithm.IntelligentQuesAns;
 import com.smart_justice.smart_justice.algorithm.RelatedCaseRec;
-import com.smart_justice.smart_justice.model.CtvFocusParams;
-import com.smart_justice.smart_justice.model.Result;
-import com.smart_justice.smart_justice.model.WriteCaseParams;
-import com.smart_justice.smart_justice.model.RelatedCaseRecParams;
+import com.smart_justice.smart_justice.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,17 +35,24 @@ public class CourtController {
     @Autowired
     CourtService courtService;
 
+    /**
+     * 上传文件，返回内容
+     * @param file
+     * @return
+     */
+    @PostMapping("/court/fileUpload")
+    public Content getFileContent(MultipartFile file){
+        return CourtService.getFileContent(file);
+    }
+
     @PostMapping("/court/ctvFocus")
     public String getResult(MultipartFile file, String fileType, String plaintiff_claim, String defendant_claim, String caseType) {
 //    public String getResult(){
 //        Result result = new Result();
         CtvFocusParams params = new CtvFocusParams();
         if (fileType != null && !fileType.equals("")) {
-//        String fileType = "txt";
             String fileName = file.getOriginalFilename();
-//        System.out.println(fileName);
-            String dir_path = CourtController.class.getResource("/").getPath() + "/cases";
-//        System.out.println(dir_path);
+//            String dir_path = CourtController.class.getResource("/").getPath() + "/cases";
             String finalFileName;
             if (fileName != null && !fileName.equals("")) {
                 //设置通用唯一识别码，解决重名
@@ -56,7 +60,8 @@ public class CourtController {
             } else {
                 return "";   //standard
             }
-            String path = new File(dir_path).getAbsolutePath() + "\\" + finalFileName;
+//            String path = new File(dir_path).getAbsolutePath() + "\\" + finalFileName;
+            String path = "/usr/local/SpringbootProjects/smartjustice/cases/"+finalFileName;
 //            System.out.println(path);
             File f = new File(path);
             try {

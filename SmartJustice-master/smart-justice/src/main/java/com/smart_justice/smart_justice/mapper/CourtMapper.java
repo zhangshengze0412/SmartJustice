@@ -75,7 +75,7 @@ public interface CourtMapper {
      * @param id
      * @return
      */
-    @Select("select tabId from tabIndex where id=#{id}")
+    @Select("select tabId from tabindex where id=#{id}")
     List<Integer> getTabId(@Param("id")String id);
 
     /**
