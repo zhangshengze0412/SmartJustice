@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SmartJustice.iml" filepath="$PROJECT_DIR$/.idea/SmartJustice.iml" />
-      <module fileurl="file://$PROJECT_DIR$/smart-justice/smart-justice.iml" filepath="$PROJECT_DIR$/smart-justice/smart-justice.iml" />
-    </modules>
-  </component>
-</project>

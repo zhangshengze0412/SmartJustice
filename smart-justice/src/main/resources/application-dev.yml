@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/smartjustice?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: root
-    password: 123456
+    password: lphdhm11   #lphdhm11 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 #数据库连接池使用SpringBoot默认的hikari
@@ -45,10 +45,15 @@ logging:
 
 python:
   env:
-    python_env: "D:\\Anaconda\\python.exe"
-    ctv_focus_analysis_path: "D:\\IdeaProjects\\smart-justice\\intelligent_justice\\intelligent_justice_flask\\algorithm\\algorithm_example.py"
-    related_case_rec_path: "D:\\IdeaProjects\\smart-justice\\sim-calu\\similar_example.py"
-    intelligent_ques_ans_path: "D:\\IdeaProjects\\smart-justice\\reading_comprehension\\main_example.py"
-    int_ques_ans_writeCase_path: "D:\\IdeaProjects\\smart-justice\\reading_comprehension\\writeCase.py"
+#    python_env: "D:\\Anaconda\\python.exe"
+#    ctv_focus_analysis_path: "D:\\IdeaProjects\\smart-justice\\intelligent_justice\\intelligent_justice_flask\\algorithm\\algorithm_example.py"
+#    related_case_rec_path: "D:\\IdeaProjects\\smart-justice\\sim-calu\\similar_example.py"
+#    intelligent_ques_ans_path: "D:\\IdeaProjects\\smart-justice\\reading_comprehension\\main_example.py"
+#    int_ques_ans_writeCase_path: "D:\\IdeaProjects\\smart-justice\\reading_comprehension\\writeCase.py"
     related_law_rec_path:
+    python_env: "/root/anaconda3/bin/python3"
+    ctv_focus_analysis_path: "/usr/local/SpringbootProjects/smartjustice/intelligent_justice/intelligent_justice_flask/algorithm/algorithm_example.py"
+    related_case_rec_path: "/usr/local/SpringbootProjects/smartjustice/sim-calu/similar_example.py"
+    intelligent_ques_ans_path: "/usr/local/SpringbootProjects/smartjustice/reading_comprehension/main_example.py"
+    int_ques_ans_writeCase_path: "/usr/local/SpringbootProjects/smartjustice/reading_comprehension/writeCase.py"
 

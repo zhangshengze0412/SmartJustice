@@ -48,9 +48,10 @@ public class CtvFocusAnalysis {
                 params.getThreadhold(), params.getCase_type()};
 
         String result = execute.execute(args);
+        System.out.println("result after executing: "+result);
         String sub_result = ParsingResult.parsingResult(result);
         sub_result = sub_result.replace('\'','\"');
-//        System.out.println(sub_result);
+        System.out.println("sub_result: "+sub_result);
 
         if(!params.getFile_type().equals("csv")){
             switch (params.getCase_type()){
@@ -63,6 +64,8 @@ public class CtvFocusAnalysis {
                     break;
                 case "traffic":
                     TrafficCase trafficCase = ParseJsonToObj.toTraffic(sub_result);
+                    System.out.print("trafficCase == null: ");
+                    System.out.println(trafficCase == null);
                     if(trafficCase != null){
                         courtMapper.insertTraffic(trafficCase);
                         courtMapper.withTabIndex(trafficCase.getId(),3);

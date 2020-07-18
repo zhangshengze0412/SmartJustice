@@ -138,13 +138,18 @@ public class ParseJsonToObj {
     private static JSONObject getJsonObject(String json) {
         JSONArray jsonArray = JSONArray.parseArray(json);
         JSONObject jjj = null;
-        for(Object j:jsonArray){
-            JSONArray jsonArray1 = (JSONArray)j;
-            for(Object jj:jsonArray1){
-                jjj = (JSONObject)jj;
-//                System.out.println(jjj);
+        System.out.println(jsonArray);
+        if(jsonArray != null)
+        try{
+            for(Object j:jsonArray){
+                JSONArray jsonArray1 = (JSONArray)j;
+                for(Object jj:jsonArray1){
+                    jjj = (JSONObject)jj;
+                }
+                break;
             }
-            break;
+        } catch (com.alibaba.fastjson.JSONException e) {
+            e.printStackTrace();
         }
         return jjj;
     }
