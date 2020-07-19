@@ -46,60 +46,73 @@ public class CourtController {
     }
 
     @PostMapping("/court/ctvFocus")
-    public String getResult(MultipartFile file, String fileType, String plaintiff_claim, String defendant_claim, String caseType) {
+    public String getResult(MultipartFile file, String caseID, String plaintiff_claim, String defendant_claim, String caseType) {
 //    public String getResult(){
 //        Result result = new Result();
         CtvFocusParams params = new CtvFocusParams();
-        if (fileType != null && !fileType.equals("")) {
-            String fileName = file.getOriginalFilename();
-//            String dir_path = CourtController.class.getResource("/").getPath() + "/cases";
-            String finalFileName;
-            if (fileName != null && !fileName.equals("")) {
+        String fileName = file.getOriginalFilename();
+        if (fileName != null && !fileName.equals("")) {
+
+                String finalFileName;
+                String fileType;
+
+                fileType = fileName.substring(fileName.lastIndexOf(".")+1);
                 //设置通用唯一识别码，解决重名
                 finalFileName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf("."));
+                if (!fileType.equals("") && (fileType.equals("txt") || fileType.equals("docx") || fileType.equals("csv"))) {
+
+//                    String path = "D:\\IdeaProjects\\smart-justice\\cases"+ "\\" + finalFileName;
+                  String path = "/usr/local/SpringbootProjects/smartjustice/cases/"+finalFileName;
+//                  System.out.println(path);
+                    File f = new File(path);
+                    try {
+                        file.transferTo(f);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return e.getMessage();
+                    }
+                    params.setFile_name(path);
+                    if (fileType.equals("docx") || fileType.equals("txt")) {   //争议焦点
+                        //设置参数 file_type 文件类型
+                        params.setFile_type(fileType);
+                    } else {
+                        //设置参数 file_type 文件类型
+                        params.setFile_type("csv");
+                    }
+                    //设置参数 Id 案件Id
+                    params.setId("None");
+                    //设置参数 Original_claim 原告诉称
+                    params.setOriginal_claim("None");
+                    //设置参数 Defendant_argued 被告辩称
+                    params.setDefendant_argued("None");
+                }else{
+                    return "文件类型有误！";
+                }
             } else {
-                return "";   //standard
-            }
-//            String path = new File(dir_path).getAbsolutePath() + "\\" + finalFileName;
-            String path = "/usr/local/SpringbootProjects/smartjustice/cases/"+finalFileName;
-//            System.out.println(path);
-            File f = new File(path);
-            try {
-                file.transferTo(f);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return e.getMessage();
-            }
-            params.setFile_name(path);
-            if (fileType.equals("docx") || fileType.equals("txt")) {   //争议焦点
-                //设置参数 file_type 文件类型
-                params.setFile_type(fileType);
-            } else if (fileType.equals("csv")) {
-                //设置参数 file_type 文件类型
-                params.setFile_type("csv");
-            } else {
-                return "";  //standard
-            }
-            //设置参数 Id 案件Id
-            params.setId("None");
-            //设置参数 Original_claim 原告诉称
-            params.setOriginal_claim("None");
-            //设置参数 Defendant_argued 被告辩称
-            params.setDefendant_argued("None");
-        } else {
-            //设置参数 Id 案件Id
-            params.setFile_name("None");
-            params.setFile_type("None");
-            params.setId("111520");
+            if((plaintiff_claim != null && !plaintiff_claim.equals("")) && (defendant_claim != null && !defendant_claim.equals(""))){
+                if(caseID == null || caseID.equals("")){
+                    return "未指定案件ID！";
+                }
+                //设置参数 Id 案件Id
+                params.setFile_name("None");
+                params.setFile_type("None");
+                params.setId(caseID);
 //            System.out.println(plaintiff_claim);
 //            System.out.println(defendant_claim);
-            //设置参数 Original_claim 原告诉称
-            params.setOriginal_claim(plaintiff_claim);
-            //设置参数 Defendant_argued 被告辩称
-            params.setDefendant_argued(defendant_claim);
-        }
-
-        //------------------------------------------------
+                //设置参数 Original_claim 原告诉称
+                params.setOriginal_claim(plaintiff_claim);
+                //设置参数 Defendant_argued 被告辩称
+                params.setDefendant_argued(defendant_claim);
+//                //设置参数 Original_claim 原告诉称
+//                params.setOriginal_claim("None");
+//                //设置参数 Defendant_argued 被告辩称
+//                params.setDefendant_argued("None");
+            }else{
+                //查数据库历史记录
+                return courtService.useCaseID(caseID,caseType);
+            }
+            }
+            //------------------------------------------------
 //        CtvFocusParams params = new CtvFocusParams();
 ////        params.setFile_name("C:\\Users\\DELL\\Desktop\\gysh_10_test.csv");
 ////        params.setFile_type("csv");

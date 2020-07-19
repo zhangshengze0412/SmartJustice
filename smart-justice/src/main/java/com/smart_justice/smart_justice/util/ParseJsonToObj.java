@@ -111,7 +111,7 @@ public class ParseJsonToObj {
             scamCase.setProb_FraudAmount(jjj.get("prob_诈骗数额").toString());
             scamCase.setProb_CausalRelationship(jjj.get("prob_因果关系").toString());
             scamCase.setProb_Fraud(jjj.get("prob_诈骗罪").toString());
-            scamCase.setProb_FraudOtherSpeCri(jjj.get("prob_诈骗/其它特殊犯罪").toString());
+            scamCase.setProb_FraudOtherSpeCri(jjj.get("prob_诈骗或其它特殊犯罪").toString());
             scamCase.setProb_UnitCrime(jjj.get("prob_单位犯罪").toString());
             scamCase.setProb_Responsibility(jjj.get("prob_责任能力").toString());
             scamCase.setProb_AttemptedCrime(jjj.get("prob_犯罪形态未遂").toString());

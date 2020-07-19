@@ -23,11 +23,11 @@ public class Execute {
             //cmd:param1:python.exe路径,param2:要执行的脚本路径,param3:传参,param4.....
             Process proc = Runtime.getRuntime().exec(args);// 执行命令
             //用输入输出流来截取结果
-//            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"gbk"));
-            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(), StandardCharsets.UTF_8));
+            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"gbk"));
+//            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(), StandardCharsets.UTF_8));
             //接收错误流
-//            BufferedReader isError = new BufferedReader(new InputStreamReader(proc.getErrorStream(),"gbk"));
-            BufferedReader isError = new BufferedReader(new InputStreamReader(proc.getErrorStream(),StandardCharsets.UTF_8));
+            BufferedReader isError = new BufferedReader(new InputStreamReader(proc.getErrorStream(),"gbk"));
+//            BufferedReader isError = new BufferedReader(new InputStreamReader(proc.getErrorStream(),StandardCharsets.UTF_8));
             StringBuilder sb= new StringBuilder();
             StringBuilder sbError = new StringBuilder();
             String line = null;

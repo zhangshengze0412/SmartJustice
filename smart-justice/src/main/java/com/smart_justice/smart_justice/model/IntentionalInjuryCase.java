@@ -41,5 +41,6 @@ public class IntentionalInjuryCase {
     private String prob_Surrender;                      //prob_构成自首
     private String prob_Probation;                      //prob_缓刑
     private String prob_IllegalEvidence;                //prob_非法证据
+    private String expertRec;                           //专家建议
 
 }

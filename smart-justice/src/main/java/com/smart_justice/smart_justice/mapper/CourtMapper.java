@@ -111,5 +111,36 @@ public interface CourtMapper {
     void updateTraffic(@Param("id") String id, @Param("recommend") String recommend);
 
 
+    /**
+     * 通过id查询历史marrycase
+     * @param id
+     * @return
+     */
+    @Select("select * from marrycase where id=#{id} limit 1")
+    MarryCase getMarryCaseById(@Param("id")String id);
+
+    /**
+     * 通过id查询历史trafficcase
+     * @param id
+     * @return
+     */
+    @Select("select * from trafficcase where id=#{id} limit 1")
+    TrafficCase getTrafficCaseById(@Param("id")String id);
+
+    /**
+     * 通过id查询历史scamcase
+     * @param id
+     * @return
+     */
+    @Select("select * from scamcase where id=#{id} limit 1")
+    ScamCase getScamCaseById(@Param("id")String id);
+
+    /**
+     * 通过id查询历史intentinjurycase
+     * @param id
+     * @return
+     */
+    @Select("select * from intentinjurycase where id=#{id} limit 1")
+    IntentionalInjuryCase getIntentionalInjuryCaseById(@Param("id")String id);
 
 }

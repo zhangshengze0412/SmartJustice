@@ -41,6 +41,7 @@ public class ScamCase {
     private String prob_ApplyProbation;                       //prob_适用缓刑
     private String prob_ProsLimit;                            //prob_追诉时效
     private String prob_Evidence;                             //prob_证据
+    private String expertRec;                                 //专家建议
 
 
 

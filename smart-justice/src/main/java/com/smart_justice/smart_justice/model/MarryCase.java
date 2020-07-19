@@ -29,6 +29,6 @@ public class MarryCase {
     private String prob_Debt;                   //prob_债权债务
     private String prob_ParentingIssues;        //prob_抚养问题
     private String prob_CommonProperty;         //prob_共同财产
-
+    private String expertRec;                    //专家建议
 
 }

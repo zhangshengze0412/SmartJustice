@@ -64,8 +64,6 @@ public class CtvFocusAnalysis {
                     break;
                 case "traffic":
                     TrafficCase trafficCase = ParseJsonToObj.toTraffic(sub_result);
-                    System.out.print("trafficCase == null: ");
-                    System.out.println(trafficCase == null);
                     if(trafficCase != null){
                         courtMapper.insertTraffic(trafficCase);
                         courtMapper.withTabIndex(trafficCase.getId(),3);

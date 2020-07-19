@@ -1,8 +1,8 @@
 package com.smart_justice.smart_justice.algorithm;
 
+import com.alibaba.fastjson.JSONObject;
 import com.smart_justice.smart_justice.mapper.CourtMapper;
-import com.smart_justice.smart_justice.model.Content;
-import com.smart_justice.smart_justice.model.Result;
+import com.smart_justice.smart_justice.model.*;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,4 +141,43 @@ public class CourtService {
     }
 
 
+    public String useCaseID(String caseID, String caseType) {
+        boolean flag = true;
+        if(caseType != null && !caseType.equals("")){
+            switch (caseType){
+                case "marry":
+                    MarryCase marryCase = courtMapper.getMarryCaseById(caseID);
+                    if(marryCase != null){
+                        return JSONObject.toJSONString(marryCase);
+                    }else{
+                        return "未找到该ID所指的案件！";
+                    }
+                case "traffic":
+                    TrafficCase trafficCase = courtMapper.getTrafficCaseById(caseID);
+                    if(trafficCase != null){
+                        return JSONObject.toJSONString(trafficCase);
+                    }else{
+                        return "未找到该ID所指的案件！";
+                    }
+                case "zpz":
+                    ScamCase scamCase = courtMapper.getScamCaseById(caseID);
+                    if(scamCase != null){
+                        return JSONObject.toJSONString(scamCase);
+                    }else{
+                        return "未找到该ID所指的案件！";
+                    }
+                case "gysh":
+                    IntentionalInjuryCase intentionalInjuryCase = courtMapper.getIntentionalInjuryCaseById(caseID);
+                    if(intentionalInjuryCase != null){
+                        return JSONObject.toJSONString(intentionalInjuryCase);
+                    }else{
+                        return "未找到该ID所指的案件！";
+                    }
+                default:
+                    return "案件类型有误！";
+            }
+        }else{
+            return "未指定案件类型！";
+        }
+    }
 }

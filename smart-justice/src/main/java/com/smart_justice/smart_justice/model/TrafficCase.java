@@ -34,6 +34,7 @@ public class TrafficCase {
     private String prob_RoadManResp;                    //prob_道路管理者责任
     private String prob_AppraisalOpi;                   //prob_鉴定意见书
     private String prob_EmployerResp;                  //prob_雇主责任
+    private String expertRec;                           //专家建议
 
 
 }
